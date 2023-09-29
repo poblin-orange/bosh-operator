@@ -1,0 +1,302 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: boshconfigs.mkt.cloud.orange.com
+spec:
+  group: mkt.cloud.orange.com
+  names:
+    kind: BOSHConfig
+    listKind: BOSHConfigList
+    plural: boshconfigs
+    shortNames:
+    - bcc
+    singular: boshconfig
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: BOSHConfig is the Schema for the boshconfigs API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          dependencies:
+            properties:
+              dependsOn:
+                items:
+                  properties:
+                    config:
+                      type: string
+                    deployment:
+                      type: string
+                    status:
+                      type: string
+                    stemcell:
+                      type: string
+                  type: object
+                type: array
+              retryAfter:
+                type: integer
+            type: object
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: BOSHConfigSpec defines the desired state of BOSHConfig
+            properties:
+              config:
+                type: string
+              director:
+                type: string
+              type:
+                type: string
+            required:
+            - config
+            - director
+            - type
+            type: object
+          status:
+            description: BOSHConfigStatus defines the observed state of BOSHConfig
+            properties:
+              ready:
+                type: boolean
+              state:
+                type: string
+            required:
+            - ready
+            - state
+            type: object
+        type: object
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: boshdeployments.mkt.cloud.orange.com
+spec:
+  group: mkt.cloud.orange.com
+  names:
+    kind: BOSHDeployment
+    listKind: BOSHDeploymentList
+    plural: boshdeployments
+    shortNames:
+    - bosh
+    singular: boshdeployment
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: BOSHDeployment is the Schema for the boshdeployments API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          dependencies:
+            properties:
+              dependsOn:
+                items:
+                  properties:
+                    config:
+                      type: string
+                    deployment:
+                      type: string
+                    status:
+                      type: string
+                    stemcell:
+                      type: string
+                  type: object
+                type: array
+              retryAfter:
+                type: integer
+            type: object
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: BOSHDeploymentSpec defines the desired state of BOSHDeployment
+            properties:
+              director:
+                type: string
+              entrypoint:
+                type: string
+              ops:
+                items:
+                  type: string
+                type: array
+              ref:
+                type: string
+              repo:
+                type: string
+              vars:
+                items:
+                  description: VariableSource defines where variables for a deployment
+                    come from
+                  properties:
+                    configMap:
+                      description: ConfigMapVariableSource ties a VariableSource to
+                        a ConfigMap
+                      properties:
+                        mapKeys:
+                          additionalProperties:
+                            type: string
+                          type: object
+                        name:
+                          type: string
+                      required:
+                      - name
+                      type: object
+                    name:
+                      type: string
+                    secret:
+                      description: SecretVariableSource ties a VariableSource to a
+                        Secret
+                      properties:
+                        mapKeys:
+                          additionalProperties:
+                            type: string
+                          type: object
+                        name:
+                          type: string
+                      required:
+                      - name
+                      type: object
+                    value:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          status:
+            description: BOSHDeploymentStatus defines the observed state of BOSHDeployment
+            properties:
+              ready:
+                type: boolean
+              state:
+                type: string
+            required:
+            - ready
+            - state
+            type: object
+        type: object
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: boshstemcells.mkt.cloud.orange.com
+spec:
+  group: mkt.cloud.orange.com
+  names:
+    kind: BOSHStemcell
+    listKind: BOSHStemcellList
+    plural: boshstemcells
+    shortNames:
+    - stemcell
+    - bsc
+    singular: boshstemcell
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: BOSHStemcell is the Schema for the boshstemcells API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          dependencies:
+            properties:
+              dependsOn:
+                items:
+                  properties:
+                    config:
+                      type: string
+                    deployment:
+                      type: string
+                    status:
+                      type: string
+                    stemcell:
+                      type: string
+                  type: object
+                type: array
+              retryAfter:
+                type: integer
+            type: object
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: BOSHStemcellSpec defines the desired state of BOSHStemcell
+            properties:
+              director:
+                type: string
+              fix:
+                type: boolean
+              name:
+                type: string
+              sha1:
+                type: string
+              url:
+                type: string
+              version:
+                type: string
+            required:
+            - director
+            - sha1
+            - url
+            type: object
+          status:
+            description: BOSHStemcellStatus defines the observed state of BOSHStemcell
+            properties:
+              ready:
+                type: boolean
+              state:
+                type: string
+            required:
+            - ready
+            - state
+            type: object
+        type: object
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
